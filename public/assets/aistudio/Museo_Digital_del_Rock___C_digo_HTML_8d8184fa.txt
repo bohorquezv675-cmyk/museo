@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Museo Digital del Rock — San Cristóbal Sur</title>
+  <style>
+    :root {
+      --bg-main: #0c0d0f;
+      --bg-surface: #15171b;
+      --bg-card: #1c1f24;
+      --bg-elevated: #242830;
+      --text-primary: #f2f2f2;
+      --text-secondary: #b0b5bd;
+      --accent-gold: #e0a82e;
+      --accent-green: #38b05d;
+      --accent-red: #d94141;
+      --border-color: #2e333d;
+      --font-sans: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* HEADER & NAVEGACIÓN TIPO MUSEO */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(12, 13, 15, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.9rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      cursor: pointer;
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-green), #1b4d2b);
+      border: 2px solid var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-title h1 {
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .brand-title span {
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      display: block;
+    }
+
+    /* BOTÓN DE TRES PUNTICOS */
+    .menu-wrapper {
+      position: relative;
+    }
+
+    .dots-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .dots-btn:hover {
+      border-color: var(--accent-gold);
+      background: var(--bg-elevated);
+    }
+
+    .dots-btn span {
+      width: 4px;
+      height: 4px;
+      background-color: var(--text-primary);
+      border-radius: 50%;
+      display: block;
+    }
+
+    .dropdown-nav {
+      position: absolute;
+      right: 0;
+      top: 52px;
+      width: 260px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.65);
+      display: none;
+      flex-direction: column;
+      padding: 0.5rem;
+      z-index: 1100;
+    }
+
+    .dropdown-nav.open {
+      display: flex;
+    }
+
+    .dropdown-nav button {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 0.92rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dropdown-nav button:hover,
+    .dropdown-nav button.active {
+      background: var(--bg-elevated);
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    /* CONTENEDOR DE SECCIONES */
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .page-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* INICIO / HERO */
+    .hero {
+      background: radial-gradient(circle at top right, #1e2d24 0%, var(--bg-surface) 55%, var(--bg-main) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 3.5rem 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(224, 168, 46, 0.14);
+      color: var(--accent-gold);
+      border: 1px solid rgba(224, 168, 46, 0.4);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h2 {
+      font-size: 2.35rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      max-width: 780px;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      max-width: 720px;
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+
+    .btn-primary {
+      background: var(--accent-gold);
+      color: #111;
+      border: none;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-gold);
+    }
+
+    /* TARJETAS DE ACCESO EN INICIO */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-gold);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.6rem;
+      color: var(--accent-gold);
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.93rem;
+    }
+
+    /* ENCABEZADOS DE SECCIÓN */
+    .section-header {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-header small {
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .section-header h2 {
+      font-size: 1.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+      max-width: 820px;
+    }
+
+    /* QUIÉNES SOMOS */
+    .editorial-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-gold);
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .editorial-box h3 {
+      margin-bottom: 0.8rem;
+      font-size: 1.25rem;
+    }
+
+    .editorial-box p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* PROPUESTA PEDAGÓGICA */
+    .pedagogy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .tag-pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 4px;
+      background: rgba(56, 176, 93, 0.16);
+      color: var(--accent-green);
+      border: 1px solid rgba(56, 176, 93, 0.4);
+      margin-bottom: 0.7rem;
+      font-weight: 600;
+    }
+
+    .meta-list {
+      list-style: none;
+      margin-top: 0.8rem;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    .meta-list li {
+      padding: 0.25rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* PESTAÑAS DE ARCHIVOS */
+    .tabs-bar {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.8rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.8rem;
+    }
+
+    .tab-btn {
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      padding: 0.65rem 1.3rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-gold);
+      color: #111;
+      border-color: var(--accent-gold);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .archive-placeholder-img {
+      width: 100%;
+      height: 165px;
+      background: linear-gradient(135deg, #22262e, #14161a);
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.84rem;
+      margin-bottom: 1rem;
+    }
+
+    .audio-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.85rem;
+      margin: 0.8rem 0;
+    }
+
+    .audio-box audio {
+      width: 100%;
+      height: 36px;
+      margin-top: 0.4rem;
+    }
+
+    /* GESTORES CULTURALES */
+    .gestor-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .video-frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #08090a;
+      border: 1px dashed var(--accent-gold);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      color: var(--text-secondary);
+    }
+
+    /* BANDAS Y BUSCADOR */
+    .search-bar-wrap {
+      margin-bottom: 1.8rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 260px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.85rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+
+    .bands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .band-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .band-photo {
+      width: 100%;
+      height: 200px;
+      background: #101215;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .band-genre {
+      display: inline-block;
+      background: rgba(217, 65, 65, 0.16);
+      color: #ff7b7b;
+      border: 1px solid rgba(217, 65, 65, 0.4);
+      padding: 0.2rem 0.65rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .interview-box {
+      background: var(--bg-card);
+      border-left: 3px solid var(--accent-green);
+      padding: 0.9rem 1rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .interview-box strong {
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      padding: 1.8rem 1rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO CON MENÚ DE TRES PUNTICOS -->
+  <header>
+    <div class="brand" onclick="navigateTo('inicio')">
+      <div class="brand-badge">MR·SC</div>
+      <div class="brand-title">
+        <h1>Museo Digital del Rock</h1>
+        <span>San Cristóbal Sur · Bogotá</span>
+      </div>
+    </div>
+
+    <div class="menu-wrapper">
+      <button class="dots-btn" id="dotsBtn" aria-label="Abrir menú de navegación" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="dropdown-nav" id="dropdownNav">
+        <button class="nav-item active" data-target="inicio" onclick="navigateTo('inicio')">Inicio</button>
+        <button class="nav-item" data-target="quienes-somos" onclick="navigateTo('quienes-somos')">Quiénes somos</button>
+        <button class="nav-item" data-target="propuesta-pedagogica" onclick="navigateTo('propuesta-pedagogica')">Propuesta pedagógica</button>
+        <button class="nav-item" data-target="archivos" onclick="navigateTo('archivos')">Archivos gráficos y sonoros</button>
+        <button class="nav-item" data-target="gestores" onclick="navigateTo('gestores')">Gestores culturales</button>
+        <button class="nav-item" data-target="bandas" onclick="navigateTo('bandas')">Bandas</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =========================================================
+         1. INICIO
+         ========================================================= -->
+    <section id="inicio" class="page-section active">
+      <div class="hero">
+        <span class="hero-tag">Archivo Vivo · Patrimonio Local · San Cristóbal</span>
+        <h2>El barrio no se calla, se amplifica: Memoria gráfica y sonora del rock en San Cristóbal Sur</h2>
+        <p>
+          Un espacio digital de preservación, investigación y difusión dedicado a las bandas, gestores culturales, procesos formativos y memorias comunitarias que han construido la escena rock y metal en la localidad cuarta de Bogotá.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="navigateTo('archivos')">Explorar Archivos</button>
+          <button class="btn-secondary" onclick="navigateTo('bandas')">Directorio de Bandas</button>
+          <button class="btn-secondary" onclick="navigateTo('quienes-somos')">Sobre el Proyecto</button>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card" onclick="navigateTo('archivos')" style="cursor:pointer;">
+          <h3>Archivos Gráficos y Sonoros</h3>
+          <p>Colección de afiches de festivales barriales, convocatorias comunitarias, registros fotográficos en vivo y compilados sonoros locales como <em>Sonidos ocultos desde San Cristóbal</em>.</p>
+        </div>
+        <div class="card" onclick="navigateTo('propuesta-pedagogica')" style="cursor:pointer;">
+          <h3>Propuesta Pedagógica Territorial</h3>
+          <p>Sistematización de talleres, certificación de competencias laborales con el SENA, Escuelas de Rock y espacios de formación impulsados desde la Mesa Local de Rock y Metal.</p>
+        </div>
+        <div class="card" onclick="navigateTo('gestores')" style="cursor:pointer;">
+          <h3>Voces y Bandas del Territorio</h3>
+          <p>Testimonios audiovisuales de gestores culturales y fichas documentales de agrupaciones locales con sus registros sonoros, trayectorias y entrevistas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         2. QUIÉNES SOMOS
+         ========================================================= -->
+    <section id="quienes-somos" class="page-section">
+      <div class="section-header">
+        <small>Proyecto de Trabajo de Grado</small>
+        <h2>Quiénes somos</h2>
+        <p>Licenciatura en Artes Visuales · Universidad Pedagógica Nacional (UPN)</p>
+      </div>
+
+      <div class="editorial-box">
+        <h3>Investigación, archivo y memoria rockera en San Cristóbal Sur</h3>
+        <p>
+          El <strong>Museo Digital del Rock de San Cristóbal Sur</strong> nace como un proyecto de trabajo de grado de la <strong>Licenciatura en Artes Visuales de la Universidad Pedagógica Nacional</strong>, orientado a investigar cómo la conservación, organización y puesta en circulación de archivos gráficos y sonoros permite acercar, visibilizar y difundir la historia del rock y el metal en la localidad.
+        </p>
+        <p>
+          Lejos de entender el archivo como un depósito estático, esta propuesta concibe los afiches, fotografías de conciertos, convocatorias comunitarias, producciones musicales y testimonios orales como soportes vivos de identidad territorial. A través de este entorno digital, se busca articular las memorias de bandas, gestores culturales y espacios autogestionados para reconocer la escena rockera de San Cristóbal como patrimonio cultural local.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Pregunta de investigación</h3>
+          <p>¿De qué manera la articulación de archivos gráficos y sonoros en un museo digital del rock visibiliza las identidades de la comunidad como patrimonio local en San Cristóbal Sur en la actualidad?</p>
+        </div>
+        <div class="card">
+          <h3>Articulación comunitaria</h3>
+          <p>El archivo dialoga con los procesos organizativos de la <strong>Mesa Local de Rock y Metal de San Cristóbal</strong>, colectivos culturales, espacios comunitarios (salones comunales, CDC La Victoria, bibliotecas públicas) y agrupaciones independientes.</p>
+        </div>
+        <div class="card">
+          <h3>Dimensión visual y sonora</h3>
+          <p>Desde las artes visuales, se propone una museografía digital accesible que reúne la estética gráfica de la escena (flyers, logotipos, fotografía documental) junto con su memoria acústica y testimonial.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. PROPUESTA PEDAGÓGICA
+         ========================================================= -->
+    <section id="propuesta-pedagogica" class="page-section">
+      <div class="section-header">
+        <small>Procesos Formativos desde la Mesa Local de Rock y Metal</small>
+        <h2>Propuesta pedagógica</h2>
+        <p>
+          Iniciativas pedagógicas, talleres y alianzas de transferencia de saberes surgidas desde la Mesa Local de Rock y Metal de San Cristóbal para fortalecer a músicos, técnicos, fotógrafos, gestores y agentes culturales del territorio.
+        </p>
+      </div>
+
+      <div class="pedagogy-grid">
+        <div class="card">
+          <span class="tag-pill">Alianza Institucional · SENA</span>
+          <h3>Evaluación y Certificación de Competencias Laborales</h3>
+          <p>Proceso gratuito impulsado por la Mesa Local de Rock y Metal en alianza con el SENA para certificar oficialmente conocimientos y trayectoria adquirida de forma empírica o académica en la escena.</p>
+          <ul class="meta-list">
+            <li><strong>Áreas:</strong> Música e interpretación (todos los géneros), técnica y audio (sonidistas, roadies, montaje), gestión y audiovisual (fotógrafos, gestores, creadores de contenido).</li>
+            <li><strong>Registro:</strong> Convocatoria abierta en noviembre de 2026.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="tag-pill">Escuela de Rock · Tu Casa Rock</span>
+          <h3>Escuela de Rock & Master Class con Referentes Nacionales</h3>
+          <p>Proceso formativo dirigido a jóvenes músicos rockeros y rockeras de San Cristóbal en guitarra, bajo, batería, técnica vocal, teclado, marketing y producción básica, con concierto de cierre.</p>
+          <ul class="meta-list">
+            <li><strong>Master Class Técnica Vocal:</strong> Amos Piñeros (Ultrágeno, Catedral, Tequendama, Mástil) — 2 y 3 de mayo, CDC La Victoria.</li>
+            <li><strong>Master Class Bajo Eléctrico:</strong> Hans Joachim Vollert (V For Volume, Raíz, Mástil) — 9 y 10 de mayo, CDC La Victoria.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="tag-pill">Producción Musical · El Rancho Record</span>
+          <h3>Taller: Aprende Producción Musical</h3>
+          <p>Proceso formativo teórico-práctico orientado por el maestro <strong>Carlos Urraya</strong>, dirigido a artistas y agentes musicales de San Cristóbal (Más Cultura Local / FDL San Cristóbal).</p>
+          <ul class="meta-list">
+            <li><strong>Contenidos:</strong> Mezcla y masterización, identidad sonora, capturas de audio y creación de pieza musical.</li>
+            <li><strong>Lema:</strong> «Tu música no se queda en el ensayo, se muestra».</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="tag-pill">Gestión y Circulación · Procultur</span>
+          <h3>Taller de Marketing Musical</h3>
+          <p>Espacio formativo orientado por Jasa Rhem en articulación con Procultur y la Mesa Local de Rock y Metal sobre estrategias eficaces de difusión para proyectos musicales locales.</p>
+          <ul class="meta-list">
+            <li><strong>Enfoque:</strong> Herramientas de posicionamiento y circulación independiente.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="tag-pill">Memoria y Género · Saquina / Almas Rocas</span>
+          <h3>Conversatorio: Mujeres, Rock y Territorio</h3>
+          <p>Encuentro sobre gestión cultural y memoria rockera comunitaria realizado el 14 de marzo de 2026 en la Biblioteca Pública La Victoria para visibilizar el papel de las mujeres en la escena.</p>
+          <ul class="meta-list">
+            <li><strong>Participantes:</strong> Patricia Gómez (moderadora), M. Liliana López, Carolina Repizo, Eloisa Rico y Carolina Briceño.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="tag-pill">Incidencia y Participación · Acuerdo Local</span>
+          <h3>Reuniones Ampliadas y Acuerdo Local de Rock y Metal</h3>
+          <p>Espacios pedagógicos y deliberativos en el Salón Comunal Barrio Managua y CDC La Victoria para construir colectivamente el Proyecto de Acuerdo Local de Rock y Metal y articularse con el XVI Congreso de Cultura y Fondo Chikana (IDPAC).</p>
+          <ul class="meta-list">
+            <li><strong>Ejes:</strong> Memoria, propuesta y acuerdo comunitario.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. ARCHIVOS (DOS PESTAÑAS: GRÁFICOS Y SONOROS)
+         ========================================================= -->
+    <section id="archivos" class="page-section">
+      <div class="section-header">
+        <small>Colección Documental del Territorio</small>
+        <h2>Archivos gráficos y sonoros</h2>
+        <p>Explora las piezas visuales de eventos y procesos comunitarios, así como los registros sonoros producidos desde la localidad.</p>
+      </div>
+
+      <div class="tabs-bar">
+        <button class="tab-btn active" id="btnTabGraficos" onclick="switchArchiveTab('graficos')">Archivos Gráficos</button>
+        <button class="tab-btn" id="btnTabSonoros" onclick="switchArchiveTab('sonoros')">Archivos Sonoros</button>
+      </div>
+
+      <!-- PESTAÑA 1: ARCHIVOS GRÁFICOS -->
+      <div id="tab-graficos" class="tab-panel active">
+        <div class="card">
+          <div class="archive-placeholder-img">[Afiche: III Festival Chiguaza Rock Fest 2025 — Circuitos Eliminatorios]</div>
+          <h3>III Festival Chiguaza Rock Fest (2025)</h3>
+          <p>Afiches de los circuitos de eliminación (Grupo B en Salón Comunal Barrio Managua el 9 de nov. y Grupo C en CDC La Victoria el 23 de nov. de 2025). Iniciativa comunitaria de apropiación territorial y talento emergente.</p>
+        </div>
+
+        <div class="card">
+          <div class="archive-placeholder-img">[Afiche: Rockween San Cristóbal 2026 — 31 de octubre]</div>
+          <h3>Rockween San Cristóbal 2026</h3>
+          <p>Pieza gráfica del festival de Halloween de la localidad realizado el sábado 31 de octubre de 2026 frente al Centro Comercial 20 de Julio, con entrada libre y registro fotográfico de <strong>@bassmirror</strong>.</p>
+        </div>
+
+        <div class="card">
+          <div class="archive-placeholder-img">[Afiche: Bogotá Gutural Fest — 23 de mayo]</div>
+          <h3>Bogotá Gutural Fest</h3>
+          <p>Cartel del encuentro en El Estruendo (Calle 23 # 4-36) con intercambio solidario de 1 kg de alimento para perro o gato, articulando bandas locales y visitantes (México y Barranquilla).</p>
+        </div>
+
+        <div class="card">
+          <div class="archive-placeholder-img">[Afiche: Capital Ink Fest — 6 y 7 de junio]</div>
+          <h3>Convención de Tatuadores — Capital Ink Fest</h3>
+          <p>Versión San Cristóbal Sur en el Coliseo / Polideportivo Villa de los Alpes (6 y 7 de junio), integrando arte corporal, emprendimientos, bandas locales y recolección de alimento para mascotas. Registro fotográfico: <strong>@sofia_v.vsg</strong>.</p>
+        </div>
+
+        <div class="card">
+          <div class="archive-placeholder-img">[Afiche: Reunión Ampliada — Proyecto de Acuerdo Local]</div>
+          <h3>Cartel: ¿Qué queremos construir? Acuerdo Local</h3>
+          <p>Pieza de convocatoria en el Salón Comunal Barrio Managua (27 de agosto) bajo los ejes <em>Memoria - Propuesta - Acuerdo</em> para fortalecer el Proyecto de Acuerdo Local de Rock y Metal.</p>
+        </div>
+
+        <div class="card">
+          <div class="archive-placeholder-img">[Documento: Reconocimiento Fondo Chikana 2025 — IDPAC]</div>
+          <h3>Reconocimiento Fondo de Incentivos Chikana 2025</h3>
+          <p>Certificado otorgado por el IDPAC (21 de diciembre de 2025) a la Mesa Local de Rock y Metal de San Cristóbal por su incidencia como instancia de participación.</p>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 2: ARCHIVOS SONOROS -->
+      <div id="tab-sonoros" class="tab-panel">
+        <div class="card">
+          <span class="tag-pill">Compilado Local · La 4ta Estudio</span>
+          <h3>Rock desde la montaña Vol. I: «Sonidos ocultos desde San Cristóbal»</h3>
+          <p>Lanzamiento realizado el viernes 22 de mayo de 2026 en el Salón Comunal Managua (rueda de prensa e intervención musical en vivo). Proyecto apoyado por el FDL de San Cristóbal y Más Cultura Local.</p>
+          <div class="audio-box">
+            <small>Pista / Muestra del compilado (insertar archivo .mp3):</small>
+            <audio controls>
+              <source src="audio/sonidos-ocultos-san-cristobal.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag-pill">Radio Online · El Retorno Rock</span>
+          <h3>Entrevista y difusión del compilado local</h3>
+          <p>Emisión radial online realizada el martes 8 de septiembre a las 6:30 p. m. a través de <em>www.elretornorock.com</em>, con participación de agrupaciones locales (como Flagrata) y apoyo de Procultur y la Mesa Local.</p>
+          <div class="audio-box">
+            <small>Registro de entrevista radial (insertar archivo .mp3):</small>
+            <audio controls>
+              <source src="audio/entrevista-el-retorno-rock.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag-pill">Registro en Vivo · Escena Local</span>
+          <h3>Registros sonoros de festivales barriales</h3>
+          <p>Capturas de audio en vivo de agrupaciones participantes en Chiguaza Rock Fest, Rockween San Cristóbal 2026 y la Muestra Final de Casa Rock en el CDC La Victoria.</p>
+          <div class="audio-box">
+            <small>Muestra en vivo (insertar archivo .mp3):</small>
+            <audio controls>
+              <source src="audio/muestra-en-vivo-sc.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. GESTORES CULTURALES
+         ========================================================= -->
+    <section id="gestores" class="page-section">
+      <div class="section-header">
+        <small>Memoria Oral y Gestión Comunitaria</small>
+        <h2>Gestores culturales</h2>
+        <p>Testimonios audiovisuales de quienes sostienen, organizan y gestionan los procesos del rock y el metal en San Cristóbal Sur.</p>
+      </div>
+
+      <div class="gestor-card">
+        <div class="video-frame">
+          <strong>[Video Testimonial: Carlos Urraya]</strong>
+          <p style="margin-top:0.5rem; max-width:540px;">
+            Aquí se inserta el enlace o reproductor del video donde Carlos Urraya relata quién es, cuánto tiempo lleva trabajando en la escena y cómo ha sido su proceso de gestión cultural y producción musical en San Cristóbal.
+          </p>
+          <!-- Ejemplo para reemplazar con enlace real de YouTube/Instagram o video local:
+          <iframe width="100%" height="100%" src="ENLACE_DEL_VIDEO" frameborder="0" allowfullscreen></iframe>
+          -->
+        </div>
+        <h3>Carlos Urraya</h3>
+        <p style="color: var(--accent-gold); font-size: 0.9rem; margin-bottom: 0.6rem;">Gestor cultural, productor musical y formador · El Rancho Record / Mesa Local de Rock y Metal</p>
+        <p style="color: var(--text-secondary);">
+          Lidera procesos de formación técnico-musical en la localidad (como el taller <em>Aprende Producción Musical</em>), acompañando a bandas locales en mezcla, masterización, identidad sonora y grabación en estudio.
+        </p>
+      </div>
+
+      <div class="gestor-card">
+        <div class="video-frame">
+          <strong>[Espacio para siguiente testimonio en video — Colectivos y Gestoras de la Localidad]</strong>
+          <p style="margin-top:0.5rem; max-width:540px;">
+            Espacio reservado para sumar nuevos videos testimoniales de gestores y gestoras culturales de la Mesa Local de Rock y Metal, Saquina / Almas Rocas, Tu Casa Rock y Procultur.
+          </p>
+        </div>
+        <h3>Mesa Local de Rock y Metal & Colectivos Aliados</h3>
+        <p style="color: var(--accent-gold); font-size: 0.9rem; margin-bottom: 0.6rem;">Articulación territorial · San Cristóbal Sur</p>
+        <p style="color: var(--text-secondary);">
+          Procesos organizativos que impulsan festivales comunitarios, formación artística, incidencia en el Acuerdo Local de Rock y Metal y espacios de visibilización como el conversatorio <em>Mujeres, Rock y Territorio</em>.
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         6. BANDAS (CON BUSCADOR Y ORDEN ESPECÍFICO DE FICHA)
+         ========================================================= -->
+    <section id="bandas" class="page-section">
+      <div class="section-header">
+        <small>Archivo de Agrupaciones Locales</small>
+        <h2>Bandas de San Cristóbal</h2>
+        <p>Busca una banda por su nombre para escuchar su registro sonoro, conocer su trayectoria y leer su entrevista.</p>
+      </div>
+
+      <div class="search-bar-wrap">
+        <input
+          type="text"
+          id="bandSearchInput"
+          class="search-input"
+          placeholder="Buscar banda por nombre (ej. Karga Inerte, Psicomorbo, Hanasmusen, Onix...)"
+          onkeyup="filterBands()"
+        />
+      </div>
+
+      <div class="bands-grid" id="bandsGrid">
+
+        <!-- FICHA 1: KARGA INERTE -->
+        <article class="band-card" data-name="karga inerte">
+          <!-- 1. ARCHIVO SONORO DE PRIMERAS -->
+          <div class="audio-box">
+            <small>Registro sonoro — Karga Inerte:</small>
+            <audio controls>
+              <source src="audio/karga-inerte.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+          <!-- 2. NOMBRE DE LA BANDA -->
+          <h3>Karga Inerte</h3>
+          <span class="band-genre">Metal Punk Enfermizo</span>
+          <!-- 3. FOTOGRAFÍA DE LA BANDA -->
+          <div class="band-photo">[Fotografía en vivo: Karga Inerte en Capital Ink Fest — Polideportivo Villa de los Alpes]</div>
+          <!-- 4. ESCRITO DETALLADO -->
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Agrupación activa en los circuitos locales de San Cristóbal Sur, con participación destacada en el Tercer Circuito de Eliminación del <em>III Festival Chiguaza Rock Fest 2025</em> (CDC La Victoria), la <em>Muestra Final de Casa Rock</em> y el <em>Capital Ink Fest</em>.
+          </p>
+          <!-- 5. PEQUEÑA ENTREVISTA -->
+          <div class="interview-box">
+            <strong>Entrevista · Voz de la banda:</strong>
+            «Tocar en los escenarios del barrio mantiene vivo el encuentro directo con la gente; la autogestión y los festivales locales nos permiten compartir nuestra propuesta sin perder la raíz territorial.»
+          </div>
+        </article>
+
+        <!-- FICHA 2: PSICOMORBO -->
+        <article class="band-card" data-name="psicomorbo">
+          <div class="audio-box">
+            <small>Registro sonoro — Psicomorbo:</small>
+            <audio controls>
+              <source src="audio/psicomorbo.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+          <h3>Psicomorbo</h3>
+          <span class="band-genre">Rock / Metal Local</span>
+          <div class="band-photo">[Fotografía grupal: Psicomorbo con su estandarte en Polideportivo Villa de los Alpes]</div>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Banda vinculada a los procesos de circulación y formación en San Cristóbal Sur, presente en la <em>Muestra Final de Casa Rock</em> (CDC La Victoria) y en la jornada cultural de <em>Capital Ink Fest</em>.
+          </p>
+          <div class="interview-box">
+            <strong>Entrevista · Voz de la banda:</strong>
+            «Cada presentación en la localidad es una oportunidad para conectar con nuevos públicos y demostrar que en San Cristóbal hay propuestas con identidad visual y sonora propia.»
+          </div>
+        </article>
+
+        <!-- FICHA 3: INTERNAL SELF IMMOLATION -->
+        <article class="band-card" data-name="internal self immolation">
+          <div class="audio-box">
+            <small>Registro sonoro — Internal Self Immolation:</small>
+            <audio controls>
+              <source src="audio/internal-self-immolation.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+          <h3>Internal Self Immolation</h3>
+          <span class="band-genre">Metal Extremo / Técnico</span>
+          <div class="band-photo">[Fotografía en vivo: Internal Self Immolation en Rockween San Cristóbal 2026 — Foto: @bassmirror]</div>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Agrupación participante en <em>Rockween San Cristóbal 2026</em> frente al Centro Comercial 20 de Julio, destacando por su contundencia escénica y técnica instrumental ante el público de la localidad.
+          </p>
+          <div class="interview-box">
+            <strong>Entrevista · Voz de la banda:</strong>
+            «La energía del público en Rockween San Cristóbal fue brutal; espacios abiertos y gratuitos como este fortalecen el lazo entre las bandas y el barrio.»
+          </div>
+        </article>
+
+        <!-- FICHA 4: ONIX -->
+        <article class="band-card" data-name="onix">
+          <div class="audio-box">
+            <small>Registro sonoro — Onix:</small>
+            <audio controls>
+              <source src="audio/onix.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+          <h3>Onix</h3>
+          <span class="band-genre">Hard Heavy Metal</span>
+          <div class="band-photo">[Fotografía en vivo: Onix en tarima durante Capital Ink Fest — Polideportivo Villa de los Alpes]</div>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Banda de Hard Heavy Metal con presencia constante en los festivales de la localidad, incluyendo el Segundo Circuito del <em>III Festival Chiguaza Rock Fest 2025</em> (Salón Comunal Barrio Managua) y <em>Capital Ink Fest</em>.
+          </p>
+          <div class="interview-box">
+            <strong>Entrevista · Voz de la banda:</strong>
+            «El heavy metal en San Cristóbal se sostiene con disciplina, ensayo y apoyo mutuo entre músicos de distintas generaciones.»
+          </div>
+        </article>
+
+        <!-- FICHA 5: HANASMUSEN -->
+        <article class="band-card" data-name="hanasmusen">
+          <div class="audio-box">
+            <small>Registro sonoro — Hanasmusen:</small>
+            <audio controls>
+              <source src="audio/hanasmusen.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+          <h3>Hanasmusen</h3>
+          <span class="band-genre">Death Metal Alternativo / Rock Progresivo</span>
+          <div class="band-photo">[Fotografía de la agrupación: Hanasmusen]</div>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Agrupación participante en los circuitos de circulación de la escena local, registrada en el Segundo Circuito de Eliminación del <em>III Festival Chiguaza Rock Fest 2025</em> en el Salón Comunal Barrio Managua.
+          </p>
+          <div class="interview-box">
+            <strong>Entrevista · Voz de la banda:</strong>
+            «Explorar sonoridades pesadas y alternativas desde lo local nos permite dialogar con la memoria del territorio y aportar nuevas búsquedas musicales a la escena.»
+          </div>
+        </article>
+
+        <!-- FICHA 6: OTRAS AGRUPACIONES DEL ARCHIVO -->
+        <article class="band-card" data-name="maniac flagrata visajes del palenque caminos del cerro">
+          <div class="audio-box">
+            <small>Registro sonoro — Archivo de bandas locales:</small>
+            <audio controls>
+              <source src="audio/archivo-bandas-sc.mp3" type="audio/mpeg" />
+              Tu navegador no soporta el reproductor de audio.
+            </audio>
+          </div>
+          <h3>Archivo de Agrupaciones Locales (En catalogación)</h3>
+          <span class="band-genre">Rock · Metal · Punk · Alternativo</span>
+          <div class="band-photo">[Registro documental de carteles: Chiguaza Rock Fest, Rockween y Casa Rock]</div>
+          <p style="color: var(--text-secondary); font-size: 0.92rem;">
+            Agrupaciones documentadas en los carteles y memorias de San Cristóbal en proceso de ampliación de ficha: <strong>Maniac</strong>, <strong>Flagrata</strong>, <strong>Visajes del Palenque</strong>, <strong>C.R. Ensamble</strong>, <strong>Caminos del Cerro</strong>, <strong>Legion for Death</strong>, <strong>Ashes</strong>, <strong>Recalentado</strong>, <strong>Machina Dei</strong>, <strong>Los Olvidados</strong>, <strong>Rhyme of Tears</strong>, <strong>Korkvak</strong>, <strong>Dead Silence</strong>, <strong>Rainmaker</strong>, <strong>Hybrid Minds</strong>, <strong>Azghort</strong>, <strong>A.S.M.A</strong>, <strong>Unbroken</strong> y <strong>Wild Side</strong>.
+          </p>
+          <div class="interview-box">
+            <strong>Nota curatorial:</strong>
+            Cada una de estas agrupaciones contará con su ficha individualizada a medida que se incorporen sus entrevistas y registros sonoros al museo.
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Museo Digital del Rock — San Cristóbal Sur · Proyecto de Grado · Licenciatura en Artes Visuales (Universidad Pedagógica Nacional)
+  </footer>
+
+  <script>
+    // Desplegar / cerrar menú de tres punticos
+    function toggleMenu() {
+      const nav = document.getElementById('dropdownNav');
+      nav.classList.toggle('open');
+    }
+
+    // Cerrar menú al hacer clic fuera
+    document.addEventListener('click', function (e) {
+      const menuWrapper = document.querySelector('.menu-wrapper');
+      const nav = document.getElementById('dropdownNav');
+      if (!menuWrapper.contains(e.target)) {
+        nav.classList.remove('open');
+      }
+    });
+
+    // Navegación entre secciones principales
+    function navigateTo(sectionId) {
+      document.querySelectorAll('.page-section').forEach(sec => {
+        sec.classList.remove('active');
+      });
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.classList.add('active');
+      }
+
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-target') === sectionId) {
+          btn.classList.add('active');
+        }
+      });
+
+      document.getElementById('dropdownNav').classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Cambio de pestañas en Archivos (Gráficos / Sonoros)
+    function switchArchiveTab(tabName) {
+      document.getElementById('btnTabGraficos').classList.remove('active');
+      document.getElementById('btnTabSonoros').classList.remove('active');
+      document.getElementById('tab-graficos').classList.remove('active');
+      document.getElementById('tab-sonoros').classList.remove('active');
+
+      if (tabName === 'graficos') {
+        document.getElementById('btnTabGraficos').classList.add('active');
+        document.getElementById('tab-graficos').classList.add('active');
+      } else {
+        document.getElementById('btnTabSonoros').classList.add('active');
+        document.getElementById('tab-sonoros').classList.add('active');
+      }
+    }
+
+    // Buscador de bandas por nombre
+    function filterBands() {
+      const query = document.getElementById('bandSearchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.band-card');
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        card.style.display = name.includes(query) ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
